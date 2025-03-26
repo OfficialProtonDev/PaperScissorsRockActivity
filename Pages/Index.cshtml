@@ -4,7 +4,38 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@using PaperScissorsRock.Operations;
+
+<div class="card" style=" width: 18rem; margin-top: 20px">
+    <div class="card-header">
+        <h1>Paper Scissors Rock </h1>
+        <img src="~/imgs/@(Model.GameResultState.ToString()).jpg" class="card-img-top" />
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                @foreach (ChoiceOptions item in Enum.GetValues(typeof(ChoiceOptions)))
+                {
+                    <input type="radio" asp-for="PlayerChoice" value="@item" />
+
+                    @item
+
+                    <br />
+                }
+
+                <div class="row">
+                    <input type="submit" value="Submit" asp-action="Index" />
+                </div>
+            </div>
+            <label>Draws @Scores.ScoreData[2]</label>
+            <label>Wins @Scores.ScoreData[1]</label>
+            <label>Losses @Scores.ScoreData[0]</label>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <label>Result</label>
+            <p>@Model.Result </p>
+        </div>
+    </div>
 </div>
